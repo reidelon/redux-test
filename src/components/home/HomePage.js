@@ -7,7 +7,7 @@ const HomePage = () => (
       <p className="lead">React, Redux and React Router.</p>
       <hr className="my-4"/>
       <p className="lead">
-        <Link to="about" className="btn btn-primary btn-lg">
+        <Link to="/about" className="btn btn-primary btn-lg">
                 Learn more
         </Link>
       </p>
