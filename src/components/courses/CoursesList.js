@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 
 class CoursesList extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   renderTableData() {
     return this.props.courses.map((course, index) => {
        const { id, title, slug, category, authorName} = course //destructuring

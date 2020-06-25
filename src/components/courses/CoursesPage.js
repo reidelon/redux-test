@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import CoursesList from "./CoursesList"
 
 
+
 class CoursesPage extends React.Component {
   componentDidMount() {
     const {courses, authors, actions} = this.props
@@ -46,6 +47,8 @@ function mapStateToProps(state){
         authors: state.authors
     };
 }
+
+//"bindActionCreators" map to props aproach
 
 function mapDispatchToProps(dispatch){
     return {
