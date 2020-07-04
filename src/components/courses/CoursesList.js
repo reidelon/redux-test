@@ -7,25 +7,26 @@ class CoursesList extends React.Component {
   renderTableData() {
     return this.props.courses.map((course, index) => {
        const { id, title, slug, category, authorName} = course //destructuring
+       console.log(course);
        return (
          <tr key={id}>
-           <td>
-             <Link
-               role="button"
-               className="btn btn-outline-primary btn-sm"
-               to={"/course/" + slug}
-             >
-               Watch
-             </Link>
-           </td>
            <td>
              <Link to={"/course/" + slug}>{title}</Link>
            </td>
            <td>{authorName}</td>
            <td>{category}</td>
            <td>
+             <Link
+               role="button"
+               className="btn btn-primary btn-sm"
+               to={"/course/" + slug}
+             >
+               Edit
+             </Link>
+           </td>
+           <td>
              <button
-               className="btn btn-outline-danger"
+               className="btn btn-danger btn-sm"
                onClick={() => this.props.onDeleteClick(course)}
              >
                Delete
@@ -42,11 +43,10 @@ class CoursesList extends React.Component {
         <table className="table table-hover">
           <thead>
             <tr>
-              <th scope="col">id</th>
-              <th scope="col">title</th>
+              <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">category</th>
-              <th/>
+              <th scope="col" colSpan="2">actions</th>
             </tr>
           </thead>
           <tbody>

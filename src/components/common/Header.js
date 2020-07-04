@@ -1,16 +1,39 @@
 import React from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
-    const activeStyle = { color:"#F15B2A" }
-
-    return (
-        <nav>
-            <NavLink to="/" activeStyle={activeStyle} exact>Home</NavLink> {" | "}
-            <NavLink to="/courses" activeStyle={activeStyle} exact>Courses</NavLink> {" | "}
-            <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
-        </nav>
-        )
-}
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <NavLink to="/" className="navbar-brand" exact>
+              Home
+        </NavLink>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <NavLink to="/courses" className="nav-link" exact>
+              Courses
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/about" className="nav-link">
+              About
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
 export default Header;

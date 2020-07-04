@@ -8,6 +8,7 @@ import CoursesList from "./CoursesList";
 import {Redirect} from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from 'react-toastify';
+import Category from "../common/Category";
 
 class CoursesPage extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class CoursesPage extends React.Component {
     }
   }
 
-  handleDeleteCourse = async course => {
+  handleDeleteCourse = async (course) => {
     toast.success("Course deleted");
     try {
       await this.props.actions.deleteCourse(course);
@@ -42,26 +43,47 @@ class CoursesPage extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="container">
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
-        <h2>Courses</h2>
-        {this.props.loading ? 
+
+        {this.props.loading ? (
           <Spinner />
-         : (
+        ) : (
           <>
-            <button
-              style={{ marginBottom: 20 }}
-              className="btn btn-primary add-course"
-              onClick={() => this.setState({ redirectToAddCoursePage: true })}
-            >
-              Add Course
-            </button>
-            <CoursesList 
-            onDeleteClick={this.handleDeleteCourse}
-            courses={this.props.courses} />
+            <div className="row">
+              <div className="col-sm-2">
+                
+              </div>
+              <div className="col-sm-10">
+                <h2>Courses</h2>
+                <button
+                  style={{ marginBottom: 20 }}
+                  className="btn btn-primary add-course"
+                  onClick={() =>
+                    this.setState({ redirectToAddCoursePage: true })
+                  }
+                >
+                  Add Course
+                </button>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-sm-2">
+              <h6 style={{ marginLeft: 17 }}>Categories</h6>
+                <Category />
+              </div>
+              <div className="col-sm-10">
+                
+                <CoursesList
+                  onDeleteClick={this.handleDeleteCourse}
+                  courses={this.props.courses}
+                />
+              </div>
+            </div>
           </>
         )}
-      </>
+      </div>
     );
   }
 }
@@ -73,17 +95,31 @@ CoursesPage.propTypes = {
     loading: PropTypes.bool.isRequired
 };
 
-function mapStateToProps(state){
-    return {
-        courses: state.authors.length === 0 ? [] : state.courses.map(course =>{
-          return{
-            ...course,
-            authorName: state.authors.find(a=>a.id === course.authorId).name
+function mapStateToProps(state, ownProps){
+  const category = ownProps.match.params.category;
+  let courses = [];
+  if(state.authors.length != 0)
+    state.courses.forEach((course) =>{
+          if(category === undefined)
+          {debugger
+            courses.push({
+              ...course,
+              authorName: state.authors.find(a=>a.id === course.authorId).name
+            })
           }
-        }),
+          else if(course.category === category){
+            courses.push({
+              ...course,
+              authorName: state.authors.find(a=>a.id === course.authorId).name
+            })
+          }
+        });
+        
+        return {
+        courses: courses,
         authors: state.authors,
         loading: state.apiStatusReducers > 0
-    };
+    }
 }
 
 //"bindActionCreators" map to props aproach

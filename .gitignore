@@ -29,3 +29,5 @@ yarn-error.log*
 
 #env variables
 .env
+
+db.json
