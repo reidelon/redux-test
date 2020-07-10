@@ -101,7 +101,7 @@ function mapStateToProps(state, ownProps){
   if(state.authors.length != 0)
     state.courses.forEach((course) =>{
           if(category === undefined)
-          {debugger
+          {
             courses.push({
               ...course,
               authorName: state.authors.find(a=>a.id === course.authorId).name

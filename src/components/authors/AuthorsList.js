@@ -7,14 +7,13 @@ class CoursesList extends React.Component {
   renderTableData() {
     return this.props.courses.map((course, index) => {
        const { id, title, slug, category, authorName} = course //destructuring
+       console.log(course);
        return (
          <tr key={id}>
            <td>
              <Link to={"/course/" + slug}>{title}</Link>
            </td>
-           <td>
-             <Link to={"/author/" + authorName}>{authorName}</Link>
-           </td>
+           <td>{authorName}</td>
            <td>{category}</td>
            <td>
              <Link

@@ -9,6 +9,24 @@ export function loadAuthorsSuccess(authors) {
   };
 }
 
+export function createAuthorSuccess(author) {
+  return {
+    type: types.CREATE_AUTHOR_SUCCESS,
+    author: author
+  };
+}
+
+export function updateAuthorSuccess(author) {
+  return {
+    type: types.UPDATE_AUTHOR_SUCCESS,
+    author: author
+  };
+}
+
+export function deleteAuthorOptimistic(author) {
+  return { type: types.DELETE_AUTHOR_OPTIMISTIC, author: author };
+}
+
 export function loadAuthors() {
   return function (dispatch) {
     dispatch(beginApiCall());
@@ -23,3 +41,29 @@ export function loadAuthors() {
       });
   };
 }
+
+export function saveAuthor(author) {
+  return function (dispatch, getState) {
+    dispatch(beginApiCall());
+    return authorApi
+      .saveAuthor(author)
+      .then(savedAuthor => {
+        author.id
+        ? dispatch(updateAuthorSuccess(savedAuthor))
+        : dispatch(createAuthorSuccess(savedAuthor));
+      })
+      .catch((error) => {
+        dispatch(apiCallError(error));
+        throw error;
+      });
+  };
+}
+
+// export function deleteCourse(course) {
+//   return function(dispatch) {
+//     // Doing optimistic delete, so not dispatching begin/end api call
+//     // actions, or apiCallError action since we're not showing the loading status for this.
+//     dispatch(deleteCourseOptimistic(course));
+//     return courseApi.deleteCourse(course.id);
+//   };
+// }

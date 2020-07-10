@@ -1,8 +1,11 @@
-const newCourse = {
+export const newCourse = {
     id: null,
     title: "",
     authorId: null,
     category: ""
   };
 
-  export default newCourse;
+export const newAuthor = {
+    id: null,
+    name: "",
+  };

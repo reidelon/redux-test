@@ -5,7 +5,7 @@ import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import CourseForm from "./CourseForm";
-import newCourse from "../../utils";
+import {newCourse} from "../../utils";
 import Spinner from "../common/Spinner";
 import { toast } from 'react-toastify';
 
@@ -28,7 +28,7 @@ function ManageCoursePage({ courses, authors, actions, history, ...props }) {
         alert("loading authors failed" + error);
       });
     }
-    //to run an effect props changes
+    //to run an effect on props changes
   }, [props.course]);
 
   function handleChange(event){
@@ -89,7 +89,7 @@ ManageCoursePage.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export function getCouseBySlug(courses, slug){
+export function getCourseBySlug(courses, slug){
   return courses.find(course => course.slug === slug) || null;
 }
 
@@ -97,7 +97,7 @@ function mapStateToProps(state, ownProps) {
   const slug = ownProps.match.params.slug;
   const course =
     slug && state.courses.length > 0
-      ? getCouseBySlug(state.courses, slug)
+      ? getCourseBySlug(state.courses, slug)
       : newCourse;
   return {
     course: course,
