@@ -35,22 +35,20 @@ function ManageAuthorPage({ authors, actions, history, ...props }) {
     }));
   }
 
-  // function formIsValid() {
-  //   const { title, authorId, category } = course;
-  //   const errors = {};
+  function formIsValid() {
+    const { name } = author;
+    const errors = {};
 
-  //   if (!title) errors.title = "Title is required.";
-  //   if (!authorId) errors.author = "Author is required";
-  //   if (!category) errors.category = "Category is required";
+    if (!name) errors.name = "Name is required.";
 
-  //   setErrors(errors);
-  //   // Form is valid if the errors object still has no properties
-  //   return Object.keys(errors).length === 0;
-  // }
+    setErrors(errors);
+    // Form is valid if the errors object still has no properties
+    return Object.keys(errors).length === 0;
+  }
 
   function handleSave(event) {
     event.preventDefault();
-    // if (!formIsValid()) return;
+    if (!formIsValid()) return;
     setSaving(true);
     actions
       .saveAuthor(author)
