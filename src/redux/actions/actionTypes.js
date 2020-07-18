@@ -5,6 +5,7 @@ export const CREATE_COURSE_SUCCESS = "CREATE_COURSE_SUCCESS";
 export const UPDATE_COURSE_SUCCESS = "UPDATE_COURSE_SUCCESS";
 export const BEGING_API_CALL = "BEGING_API_CALL";
 export const API_CALL_ERROR = "API_CALL_ERROR";
+export const FILTER_COURSES = "FILTER_COURSES";
 
 // By convention, actions that end in "_SUCCESS" are assumed to have been the result of a completed
 // API call. But since we're doing an optimistic delete, we're hiding loading state.

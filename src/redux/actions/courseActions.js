@@ -27,6 +27,10 @@ export function deleteCourseOptimistic(course) {
   return { type: types.DELETE_COURSE_OPTIMISTIC, course };
 }
 
+export function filterCourse(filter) {
+  return { type: types.FILTER_COURSES, filter };
+}
+
 export function loadCourses() {
   return function (dispatch) {
     dispatch(beginApiCall());
@@ -65,5 +69,20 @@ export function deleteCourse(course) {
     // actions, or apiCallError action since we're not showing the loading status for this.
     dispatch(deleteCourseOptimistic(course));
     return courseApi.deleteCourse(course.id);
+  };
+}
+
+export function filterCourses(filter) {
+  return function (dispatch) {
+    dispatch(beginApiCall());
+    return courseApi
+      .filterCourses(filter)
+      .then((courses) => {
+        dispatch(loadCourseSuccess(courses));
+      })
+      .catch((error) => {
+        dispatch(apiCallError(error));
+        throw error;
+      });
   };
 }
