@@ -61,7 +61,7 @@ function ManageCoursePage({ courses, authors, actions, history, ...props }) {
       .saveCourse(course)
       .then(() => {
         toast.success("Course saved.");
-        history.push("/courses");
+        history.push("/courses/all");
       })
       .catch((error) => {
         setSaving(false);

@@ -44,13 +44,22 @@ class CoursesPage extends React.Component {
     this.setState({filteredText:''})
   }
 
+  formIsValid() {
+    const filteredText = this.state.filteredText;
+    if (!filteredText) return false; else return true;
+  }
+
   async handleApplayFilter(event){
-    try {
-      await this.props.actions.filterCourses(this.state.filteredText);
-      this.setState({disabledFilterText: false});
-      this.setState({filteredText:''})
-    } catch (error) {
-      toast.error("Filter failed. " + error.message, { autoClose: false });
+    event.preventDefault();
+    if (this.formIsValid()) {
+      try {
+        await this.props.actions.filterCourses(this.state.filteredText);
+        this.setState({ disabledFilterText: false });
+      } catch (error) {
+        toast.error("Filter failed. " + error.message, { autoClose: false });
+      }
+    } else {
+      alert("A criteria is required.");
     }
   }
 
@@ -63,17 +72,17 @@ class CoursesPage extends React.Component {
   componentDidMount() {
     const { courses, authors, actions } = this.props;
 
-    if (courses.length === 0) {
+    // if (courses.length === 0) {
       actions.loadCourses().catch((error) => {
         alert("loading courses failed" + error);
       });
-    }
+    // }
 
-    if (authors.length === 0) {
+    // if (authors.length === 0) {
       actions.loadAuthors().catch((error) => {
         alert("loading authors failed" + error);
       });
-    }
+    // }
   }
 
   handleDeleteCourse = async (course) => {
@@ -125,8 +134,8 @@ class CoursesPage extends React.Component {
               </div>
               <div className="col-sm-10">
                 <CoursesList
+                  filteredText={this.state.filteredText}
                   disabledSearch={this.state.filteredText?false:true}
-                  categoryFiltered={this.state.categoryFiltered}
                   onFilterTextChange={this.handleFilterTextChange}
                   onDeleteClick={this.handleDeleteCourse}
                   onApplayFilter={this.handleApplayFilter}

@@ -16,8 +16,9 @@ function App() {
       <Header/>
       <Switch>
           <Route exact path="/" component={HomePage}/>
+          <Route path="/courses/all" component={CoursesPage}/>
           <Route path="/courses/:category" component={CoursesPage}/>
-          <Route path="/courses" component={CoursesPage}/>
+          {/* <Route path="/courses" component={CoursesPage}/> */}
           <Route path="/about" component={About}/>
           <Route path="/course/:slug" component={ManageCoursePage}/>
           <Route path="/course" component={ManageCoursePage}/>

@@ -40,6 +40,7 @@ class CoursesList extends React.Component {
                   style={{ "width": "80%"}}
                   name="course"
                   onChange={this.props.onFilterTextChange}
+                  value={this.props.filteredText}
                 />
 
                 <button

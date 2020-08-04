@@ -24,7 +24,20 @@ const Category = props => {
     })
   }
    
-  return <ul className="nav flex-sm-column">{rendercategories(props)}</ul>
+  return (
+    <ul className="nav flex-sm-column">
+      <li key="all" className="nav-item">
+        <NavLink
+          to={"/courses/all"}
+          activeStyle={activeStyle}
+          className="nav-link  overme"
+        >
+          All
+        </NavLink>
+      </li>
+      {rendercategories(props)}
+    </ul>
+  );
 }
 
 Category.propTypes = {

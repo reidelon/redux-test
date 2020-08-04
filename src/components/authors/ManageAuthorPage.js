@@ -54,7 +54,7 @@ function ManageAuthorPage({ authors, actions, history, ...props }) {
       .saveAuthor(author)
       .then(() => {
         toast.success("Author saved.");
-        history.push("/courses");
+        history.push("/courses/all");
       })
       .catch((error) => {
         setSaving(false);
