@@ -16,9 +16,7 @@ class CoursesPage extends React.Component {
     super(props);
     this.state = { 
       redirectToAddCoursePage: false,
-      authorFiltered: "",
-      courseFiltered: "",
-      categoryFiltered: "",
+      filteredText: "",
       disabledFilterText: true
     };
 
@@ -30,11 +28,8 @@ class CoursesPage extends React.Component {
   async handleResetFilter(event){
     const actions = this.props.actions;
 
-    let filteredText = {
-      courseFiltered: '',
-      categoryFiltered: ''
-    }
-    this.setState(filteredText);
+    let filteredText = '';
+    this.setState({filteredText});
     // window.location("/courses");
     // this.props.history.push('/courses');
 
@@ -46,49 +41,24 @@ class CoursesPage extends React.Component {
       alert("loading authors failed" + error);
     });
     this.setState({disabledFilterText: true});
+    this.setState({filteredText:''})
   }
 
   async handleApplayFilter(event){
-    let stringFilter = '';
     try {
-      stringFilter += this.state.courseFiltered ? ("title=" + this.state.courseFiltered + "&"):'';
-      stringFilter += this.state.categoryFiltered ?  ("category=" + this.state.categoryFiltered + "&"):'';
-      await this.props.actions.filterCourses(stringFilter);
+      await this.props.actions.filterCourses(this.state.filteredText);
       this.setState({disabledFilterText: false});
+      this.setState({filteredText:''})
     } catch (error) {
       toast.error("Filter failed. " + error.message, { autoClose: false });
     }
   }
 
-  async handleFilterTextChange(event) {
-    const { name, value } = event.target;
-    let filteredText = {};
-    if(name === 'author'){
-      filteredText = {
-        authorFiltered: value
-      }
-    }
-     if(name === 'course'){
-      filteredText = {
-        courseFiltered: value
-      }
-    }
-    else{
-      filteredText = {
-        categoryFiltered: value
-      }
-    }
-    this.setState(filteredText);
-
-    // try {
-    //   stringFilter += this.state.courseFiltered ? ("title=" + this.state.courseFiltered + "&"):'';
-    //   stringFilter += this.state.categoryFiltered ?  ("category=" + this.state.categoryFiltered + "&"):'';
-    //   await this.props.actions.filterCourses(stringFilter);
-    // } catch (error) {
-    //   toast.error("Filter failed. " + error.message, { autoClose: false });
-    // }
+  handleFilterTextChange(event) {
+    const { value } = event.target;
+    let filteredText = value;
+    this.setState({filteredText});
   }
-
 
   componentDidMount() {
     const { courses, authors, actions } = this.props;
@@ -129,7 +99,7 @@ class CoursesPage extends React.Component {
               <div className="col-sm-10">
                 <h2>Courses</h2>
                 <div className="row">
-                  <div class="col-sm">
+                  <div className="col-sm">
                     <button
                       style={{ marginBottom: 20 }}
                       className="btn btn-info add-course"
@@ -141,7 +111,7 @@ class CoursesPage extends React.Component {
                     </button>
                   </div>
 
-                  <div class="col-sm">
+                  <div className="col-sm">
                     <FilterButton disabled={this.state.disabledFilterText} onFilterReset={this.handleResetFilter}/>
                   </div>
                 </div>
@@ -155,8 +125,7 @@ class CoursesPage extends React.Component {
               </div>
               <div className="col-sm-10">
                 <CoursesList
-                  authorFiltered={this.state.authorFiltered}
-                  courseFiltered={this.state.courseFiltered}
+                  disabledSearch={this.state.filteredText?false:true}
                   categoryFiltered={this.state.categoryFiltered}
                   onFilterTextChange={this.handleFilterTextChange}
                   onDeleteClick={this.handleDeleteCourse}

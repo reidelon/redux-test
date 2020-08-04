@@ -9,7 +9,7 @@ export function getCourses() {
 }
 
 export function filterCourses(filter) {
-  return fetch(baseUrl.slice(0, -1) + '?' + filter)
+  return fetch(baseUrl.slice(0, -1) + '?q=' + filter)
     .then(handleResponse)
     .catch(handleError);
 }

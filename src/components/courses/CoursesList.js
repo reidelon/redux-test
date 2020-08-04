@@ -1,27 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilterInput from "../common/FilterInput";
 import CourseTableRow from "./CourseTableRow";
 
 class CoursesList extends React.Component {
-
   renderTableData() {
-
-       return this.props.courses.map((course, index) => {
-        const { id, title, slug, category, authorName } = course; //destructuring
-        return(
-          <CourseTableRow
-            course={course}
-            onDeleteClick={this.props.onDeleteClick}
-          />
-        );
-      });
- }
+    return this.props.courses.map((course, index) => {
+      return (
+        <CourseTableRow
+          key={index}
+          course={course}
+          onDeleteClick={this.props.onDeleteClick}
+        />
+      );
+    });
+  }
 
   render() {
-    const authorFiltered = this.props.authorFiltered;
-    const courseFiltered = this.props.courseFiltered;
-    const categoryFiltered = this.props.categoryFiltered;
     return (
       <>
         <table className="table table-hover">
@@ -37,31 +31,28 @@ class CoursesList extends React.Component {
           </thead>
           <tbody>
             <tr>
-              <FilterInput
-                name="course"
-                value={courseFiltered}
-                onFilterTextChange={this.props.onFilterTextChange}
-              />
-              <FilterInput
-                name="author"
-                value={authorFiltered}
-                onFilterTextChange={this.props.onFilterTextChange}
-                disabled={true}
-              />
-              <FilterInput
-                name="category"
-                value={categoryFiltered}
-                onFilterTextChange={this.props.onFilterTextChange}
-              />
-              <td></td>
-              <td>
+            <td colSpan="3">
+              <form onSubmit={this.props.onApplayFilter} className="form-inline">
+                <input
+                  type="search"
+                  className="form-control form-control-sm mr-sm-2"
+                  id="exampleFormControlInput1"
+                  style={{ "width": "80%"}}
+                  name="course"
+                  onChange={this.props.onFilterTextChange}
+                />
+
                 <button
                   className="btn btn-primary btn-sm"
-                  onClick={this.props.onApplayFilter}
+                  disabled={this.props.disabledSearch}
+                  type="submit"
                 >
-                  Applay
+                  Search
                 </button>
+              </form>
               </td>
+              <td></td>
+              <td></td>
             </tr>
             {this.renderTableData()}
           </tbody>
@@ -73,7 +64,7 @@ class CoursesList extends React.Component {
 
 CoursesList.propTypes = {
   courses: PropTypes.array.isRequired,
-  onDeleteClick: PropTypes.func.isRequired
+  onDeleteClick: PropTypes.func.isRequired,
 };
 
 export default CoursesList;
