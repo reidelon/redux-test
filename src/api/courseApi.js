@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from "./apiUtils";
 // const baseUrl = process.env.REACT_APP_API_URL + "/courses/";
-const baseUrl = "http://localhost:3001/courses/";
+const baseUrl = "https://zealous-khorana-a1c738.netlify.app:3001/courses/";
 
 export function getCourses() {
   return fetch(baseUrl)
