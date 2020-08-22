@@ -29,7 +29,7 @@ function ManageCoursePage({ courses, authors, actions, history, ...props }) {
       });
     }
     //to run an effect on props changes
-  }, [props.course]);
+  }, [props.course, courses.length, authors.length, actions]);
 
   function handleChange(event){
     const { name, value } = event.target;
