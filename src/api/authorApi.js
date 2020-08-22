@@ -1,6 +1,6 @@
 import { handleResponse, handleError } from "./apiUtils";
 // const baseUrl = process.env.REACT_APP_API_URL + "/authors/";
-const baseUrl = "http://localhost:3001/authors/";
+const baseUrl = "https://react-redux-courses.netlify.app:3001/authors/";
 
 export function getAuthors() {
   return fetch(baseUrl)
